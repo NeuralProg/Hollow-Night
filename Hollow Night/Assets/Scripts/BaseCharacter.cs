@@ -13,7 +13,7 @@ public abstract class BaseCharacter : MonoBehaviour
     [Header("Grounded")]
     [SerializeField] protected LayerMask whatIsGround;
     [SerializeField] protected Transform checkGround;
-    protected bool isGrounded;
+    [SerializeField] protected bool isGrounded;
 
     // Basic Movement
     protected float maxSpeed = 150f;
@@ -22,8 +22,8 @@ public abstract class BaseCharacter : MonoBehaviour
 
     // Jump
     [Header("Jump")]
-    [SerializeField] protected float jumpHeight;
-
+    [SerializeField] protected float jumpHeight = 1000;
+    
     // Falling
     protected bool falling;
     #endregion
@@ -38,8 +38,6 @@ public abstract class BaseCharacter : MonoBehaviour
 
     public virtual void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(checkGround.position, 0.1f, whatIsGround);
-
         if (rb.velocity.y < 0f)
         {
             falling = true;
@@ -48,12 +46,14 @@ public abstract class BaseCharacter : MonoBehaviour
         {
             falling = false;
         }
+
+        myAnimator.SetBool("Grounded", isGrounded);
         myAnimator.SetBool("Falling", falling);
     }
 
     public virtual void FixedUpdate()
     {
-        HandleMovement();
+        isGrounded = Physics2D.OverlapCircle(checkGround.position, 0.1f, whatIsGround);
     }
     #endregion
 
@@ -61,7 +61,7 @@ public abstract class BaseCharacter : MonoBehaviour
     #region Mechanics
     protected void Move()
     {
-        rb.velocity = new Vector2(direction * maxSpeed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(direction * maxSpeed * Time.fixedDeltaTime, rb.velocity.y);
         myAnimator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
     }
 
@@ -76,7 +76,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
     protected void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+        rb.velocity = new Vector2(rb.velocity.x, jumpHeight * Time.fixedDeltaTime);
     }
     #endregion
 

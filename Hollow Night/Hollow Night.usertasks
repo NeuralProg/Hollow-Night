@@ -1,0 +1,6 @@
+<ListOfTaskListEntry>
+  <TaskListEntry file="" description="Attack anims à trouver et à mettre en place    si grounded -&gt; pas d'attack vers le bas, attaques verticales priortaires   https://www.youtube.com/watch?v=HLu5E4YFF00" />
+  <TaskListEntry file="" description="bug double saut en partant d&quot;un mur" />
+  <TaskListEntry file="" description="fixed update à regler     any movement code to rigidbody should be in fixedupdate cuz its physics related u may run into other issues later, like stutters or inaccurate physics calculations since update runs every frame, and fixupdate runs at set amount of seconds  " priority="High" />
+  <TaskListEntry file="" description="anyway, i dont suggest implementing physics-based movement cuz ur gonna fight against the physics to tweak values just right. its a lot more smooth to use CharacterController component and add movement functionality urself. only downside is that it doesnt have gravity coded for u but thats pretty easy to do         having to deal with drag and friction, etc. really bad for 2d platformers especially sloped platforms" priority="High" />
+</ListOfTaskListEntry>
